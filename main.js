@@ -119,7 +119,7 @@ const start=async()=>{
     render()
     pageNation()
 }
-start()
+//사제 했듬
 window.onload=function(){
     start()
   }
