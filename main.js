@@ -113,7 +113,7 @@ const minusPage=async()=>{
     render()
     pageNation()
 }
-//새롭게 추가된 코드
+//새롭게 추가된 코드 333
 const start=async()=>{
    await getList()
     render()
