@@ -15,7 +15,7 @@ const getList = async () => {
     console.log(totalResult)
 }
 
-//getList()
+
 let buttons = document.querySelectorAll('.head button');
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
@@ -34,6 +34,7 @@ const getListBylocation = async () => {
 }
 const render = () => {
     let content = document.getElementById('content');
+    console.log(newsList)
     newsHTML = newsList.map((news) => {
         return (
             `<div class="row">
@@ -49,7 +50,7 @@ const render = () => {
         `
         )
     }).join('')
-    
+    console.log(newsHTML)
     content.innerHTML=newsHTML
 }
 const pageNation=()=>{
@@ -112,3 +113,12 @@ const minusPage=async()=>{
     render()
     pageNation()
 }
+const start=async()=>{
+   await getList()
+    render()
+    pageNation()
+}
+start()
+window.onload=function(){
+    start()
+  }
