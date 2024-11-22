@@ -32,3 +32,52 @@
     padding: 0px;
     overflow: hidden;
 }
+.loading-cotainer{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 3600px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 11;
+}
+.loading {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+.circle {
+    width: inherit;
+    height: inherit;
+    border: 5px solid black;
+    border-left-color: lightblue;
+    border-right-color: lightblue;
+    border-radius: 50%;
+    animation: circle 1s linear infinite
+}
+.loading span {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50% , -50%);
+    animation: loading 1s linear infinite;
+}
+.loading-cotainer.start {
+    display: none;
+}
+
+@keyframes circle {
+    0%{
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes loading {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}

@@ -6,6 +6,9 @@ let pageGroup=0
 let lastPage;
 let firstpage;
 let keyword=''
+let GroupLastPage=''
+let loading=document.querySelector('.loading-cotainer');
+
 const getList = async () => {
     const response = await fetch('https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=1&pSize=100&');
     let data = await response.json();
@@ -13,6 +16,8 @@ const getList = async () => {
     newsList = data.AbdmAnimalProtect[1].row;
     console.log(newsList)
     console.log(totalResult)
+    loading.classList.add('start')
+    GroupLastPage=Math.ceil(totalResult/10);
 }
 
 
@@ -24,13 +29,18 @@ buttons.forEach((button) => {
     })
 })
 const getListBylocation = async () => {
+    loading.classList.remove('start')
     const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=1&pSize=10&SIGUN_NM=${keyword}`);
     let data = await response.json();
     totalResult = data.AbdmAnimalProtect[0].head[0].list_total_count;
     newsList = data.AbdmAnimalProtect[1].row;
     console.log(newsList)
-    console.log(totalResult)
+    
+    GroupLastPage=Math.ceil(totalResult/10);
+    console.log('ggg',GroupLastPage)
     render()
+    
+    loading.classList.add('start')
 }
 const render = () => {
     let content = document.getElementById('content');
@@ -50,15 +60,19 @@ const render = () => {
         `
         )
     }).join('')
-    console.log(newsHTML)
+    
     content.innerHTML=newsHTML
+    pageNation()
 }
 const pageNation=()=>{
     let pageNA=document.querySelector('.pagination');
+    
     pageGroup =Math.ceil(page/GroupSize);
     lastPage=pageGroup*GroupSize;
-    if(lastPage>totalResult){
-        lastPage=totalResult;
+    console.log('grouplast',GroupLastPage);
+    console.log('lastpage',lastPage)
+    if(lastPage>GroupLastPage){
+        lastPage=GroupLastPage;
     }
     firstpage=lastPage-(GroupSize-1);
     if(page===1){
@@ -73,9 +87,12 @@ const pageNation=()=>{
     }
     pageHtml+=` <li class="page-item" onclick="plusPage()"><a class="page-link" >Next</a></li`
     pageNA.innerHTML=pageHtml
+    
 }
-pageNation()
+
+
 const moveTopage=async(i)=>{
+    loading.classList.remove('start')
     page=i;
     console.log(i,page)
     const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${i}&pSize=10&SIGUN_NM=${keyword}`);
@@ -84,6 +101,7 @@ const moveTopage=async(i)=>{
     newsList = data.AbdmAnimalProtect[1].row;
     console.log(newsList)
     console.log(totalResult)
+    loading.classList.add('start')
     render()
     pageNation()
 }
@@ -114,10 +132,13 @@ const minusPage=async()=>{
     pageNation()
 }
 //새롭게 추가된 코드 333
+
 const start=async()=>{
    await getList()
+    
     render()
-    pageNation()
+    
+    
 }
 //사제 했듬
 window.onload=function(){
