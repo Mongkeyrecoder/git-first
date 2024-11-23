@@ -3,7 +3,7 @@
     
 }
 .container {
-   
+    height: 90vh !important;
     padding: 0px;
 }
 .head {
@@ -37,7 +37,7 @@
     top:0;
     left:0;
     width: 100%;
-    height: 3600px;
+    height: 100vh;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -68,6 +68,44 @@
 .loading-cotainer.start {
     display: none;
 }
+.hambeger {
+    position: absolute;
+    top:10px;
+    left:10px;
+    width: 30px;
+    height: 30px;
+    visibility: hidden;
+}
+.hambeger span {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: black;
+    transition: 0.3s;
+}
+.hambeger.add {
+    left:100px;
+}
+.hambeger span:nth-child(1) {
+    top:0;
+}
+.hambeger span:nth-child(2) {
+    top:50%;
+}
+.hambeger span:nth-child(3) {
+    top:100%
+}
+.hambeger.add span:nth-child(1){
+    top:50%;
+    transform: rotate(45deg);
+}
+.hambeger.add span:nth-child(2){
+    opacity: 0;
+}
+.hambeger.add span:nth-child(3){
+    top:50%;
+    transform: rotate(-45deg);
+}
 
 @keyframes circle {
     0%{
@@ -80,4 +118,23 @@
 @keyframes loading {
     0%{opacity: 0;}
     100%{opacity: 1;}
+}
+@media (max-width: 600px) {
+    .hambeger{
+        visibility: visible;
+    }
+    .head {
+        position: absolute;
+        top:0;
+        left:100%;
+        display: flex;
+        flex-direction: column;
+        background-color: #eee;
+    }
+    .container h1 {
+        margin-bottom: 20px;
+    }
+    .head.add {
+        left: 0;
+    }
 }

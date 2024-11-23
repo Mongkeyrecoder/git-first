@@ -8,16 +8,24 @@ let firstpage;
 let keyword=''
 let GroupLastPage=''
 let loading=document.querySelector('.loading-cotainer');
+let Hambeger=document.querySelector('.hambeger')
+let Head=document.querySelector('.head');
+Hambeger.addEventListener('click',function(){
+    
+   Hambeger.classList.toggle('add')
+   Head.classList.toggle('add')
+    
+})
 
 const getList = async () => {
-    const response = await fetch('https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=1&pSize=100&');
+    const response = await fetch('https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=1&pSize=5&');
     let data = await response.json();
     totalResult = data.AbdmAnimalProtect[0].head[0].list_total_count;
     newsList = data.AbdmAnimalProtect[1].row;
     console.log(newsList)
     console.log(totalResult)
     loading.classList.add('start')
-    GroupLastPage=Math.ceil(totalResult/10);
+    GroupLastPage=Math.ceil(totalResult/5);
 }
 
 
@@ -30,13 +38,13 @@ buttons.forEach((button) => {
 })
 const getListBylocation = async () => {
     loading.classList.remove('start')
-    const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=1&pSize=10&SIGUN_NM=${keyword}`);
+    const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=1&pSize=5&SIGUN_NM=${keyword}`);
     let data = await response.json();
     totalResult = data.AbdmAnimalProtect[0].head[0].list_total_count;
     newsList = data.AbdmAnimalProtect[1].row;
     console.log(newsList)
     
-    GroupLastPage=Math.ceil(totalResult/10);
+    GroupLastPage=Math.ceil(totalResult/5);
     console.log('ggg',GroupLastPage)
     render()
     
@@ -95,7 +103,7 @@ const moveTopage=async(i)=>{
     loading.classList.remove('start')
     page=i;
     console.log(i,page)
-    const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${i}&pSize=10&SIGUN_NM=${keyword}`);
+    const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${i}&pSize=5&SIGUN_NM=${keyword}`);
     let data = await response.json();
     totalResult = data.AbdmAnimalProtect[0].head[0].list_total_count;
     newsList = data.AbdmAnimalProtect[1].row;
@@ -107,7 +115,7 @@ const moveTopage=async(i)=>{
 }
 const plusPage =async()=>{
     page+=1;
-    const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${page}&pSize=10&SIGUN_NM=${keyword}`);
+    const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${page}&pSize=5&SIGUN_NM=${keyword}`);
     let data = await response.json();
     totalResult = data.AbdmAnimalProtect[0].head[0].list_total_count;
     newsList = data.AbdmAnimalProtect[1].row;
