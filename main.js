@@ -26,13 +26,18 @@ const getList = async () => {
     console.log(totalResult)
     loading.classList.add('start')
     GroupLastPage=Math.ceil(totalResult/5);
+    page=1
 }
 
 
 let buttons = document.querySelectorAll('.head button');
 buttons.forEach((button) => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', function(e)  {
         keyword=e.target.textContent
+       buttons.forEach((button)=>{
+        button.classList.remove('checked')
+       })
+       this.classList.add('checked')
         getListBylocation()
     })
 })
@@ -46,6 +51,7 @@ const getListBylocation = async () => {
     
     GroupLastPage=Math.ceil(totalResult/5);
     console.log('ggg',GroupLastPage)
+    page=1;
     render()
     
     loading.classList.add('start')

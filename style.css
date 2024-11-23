@@ -106,6 +106,10 @@
     top:50%;
     transform: rotate(-45deg);
 }
+.checked {
+    border: 5px solid red !important;
+    color: black;
+}
 
 @keyframes circle {
     0%{
