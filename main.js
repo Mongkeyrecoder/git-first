@@ -83,8 +83,6 @@ const pageNation=()=>{
     
     pageGroup =Math.ceil(page/GroupSize);
     lastPage=pageGroup*GroupSize;
-    console.log('grouplast',GroupLastPage);
-    console.log('lastpage',lastPage)
     if(lastPage>GroupLastPage){
         lastPage=GroupLastPage;
     }
@@ -106,9 +104,10 @@ const pageNation=()=>{
 
 
 const moveTopage=async(i)=>{
+   
     loading.classList.remove('start')
     page=i;
-    console.log(i,page)
+    
     const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${i}&pSize=5&SIGUN_NM=${keyword}`);
     let data = await response.json();
     totalResult = data.AbdmAnimalProtect[0].head[0].list_total_count;
@@ -120,6 +119,11 @@ const moveTopage=async(i)=>{
     pageNation()
 }
 const plusPage =async()=>{
+    if(page===GroupLastPage){
+        console.log('return')
+        return
+    }
+    console.log(lastPage,page)
     page+=1;
     const response = await fetch(`https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=d6f706a93495480b8f4f0efed1c5dd88&Type=json&pIndex=${page}&pSize=5&SIGUN_NM=${keyword}`);
     let data = await response.json();
